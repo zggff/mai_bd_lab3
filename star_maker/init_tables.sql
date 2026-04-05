@@ -1,74 +1,76 @@
 CREATE TABLE IF NOT EXISTS dim_customers (
-    customer_email VARCHAR,
-    customer_first_name VARCHAR,
-    customer_last_name VARCHAR,
-    customer_age INT,
-    customer_country VARCHAR,
-    customer_postal_code VARCHAR,
-    customer_pet_type VARCHAR,
-    customer_pet_name VARCHAR,
-    customer_pet_breed VARCHAR,
-    PRIMARY KEY (customer_email)
+    id INT,
+    email VARCHAR,
+    first_name VARCHAR,
+    last_name VARCHAR,
+    age INT,
+    country VARCHAR,
+    postal_code VARCHAR,
+    pet_type VARCHAR,
+    pet_name VARCHAR,
+    pet_breed VARCHAR,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS dim_sellers (
-    seller_email VARCHAR,
-    seller_first_name VARCHAR,
-    seller_last_name VARCHAR,
-    seller_country VARCHAR,
-    seller_postal_code VARCHAR,
-    PRIMARY KEY (seller_email)
+    id INT,
+    email VARCHAR,
+    first_name VARCHAR,
+    last_name VARCHAR,
+    country VARCHAR,
+    postal_code VARCHAR,
+    PRIMARY KEY (id)
 );
 
 
 CREATE TABLE IF NOT EXISTS dim_stores (
-    store_email VARCHAR,
-    store_name VARCHAR,
-    store_location VARCHAR,
-    store_city VARCHAR,
-    store_state VARCHAR,
-    store_country VARCHAR,
-    store_phone VARCHAR,
-    PRIMARY KEY (store_email)
+    email VARCHAR,
+    name VARCHAR,
+    location VARCHAR,
+    city VARCHAR,
+    state VARCHAR,
+    country VARCHAR,
+    phone VARCHAR,
+    PRIMARY KEY (email)
 );
 
 CREATE TABLE IF NOT EXISTS dim_suppliers (
-    supplier_email VARCHAR,
-    supplier_name VARCHAR,
-    supplier_contact VARCHAR,
-    supplier_phone VARCHAR,
-    supplier_address VARCHAR,
-    supplier_city VARCHAR,
-    supplier_country VARCHAR,
-    PRIMARY KEY (supplier_email)
+    email VARCHAR,
+    name VARCHAR,
+    contact VARCHAR,
+    phone VARCHAR,
+    address VARCHAR,
+    city VARCHAR,
+    country VARCHAR,
+    PRIMARY KEY (email)
 );
 
 CREATE TABLE IF NOT EXISTS dim_products (
-    product_id VARCHAR,
-    product_name VARCHAR,
-    product_category VARCHAR,
-    product_price DECIMAL,
-    product_quantity INT,
-    product_weight DECIMAL,
-    product_color VARCHAR,
-    product_size VARCHAR,
-    product_brand VARCHAR,
-    product_material VARCHAR,
-    product_description VARCHAR,
-    product_rating DECIMAL,
-    product_reviews INT,
-    product_release_date DATE,
-    product_expiry_date DATE,
-    PRIMARY KEY (product_id)
+    id INT,
+    name VARCHAR,
+    category VARCHAR,
+    price DECIMAL,
+    quantity INT,
+    weight DECIMAL,
+    color VARCHAR,
+    size VARCHAR,
+    brand VARCHAR,
+    material VARCHAR,
+    description VARCHAR,
+    rating DECIMAL,
+    reviews INT,
+    release_date DATE,
+    expiry_date DATE,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS fact_sales (
-    id SERIAL PRIMARY KEY,
-    customer_email VARCHAR REFERENCES dim_customers(customer_email),
-    seller_email VARCHAR REFERENCES dim_sellers(seller_email),
-    supplier_email VARCHAR REFERENCES dim_suppliers(supplier_email),
-    store_email VARCHAR REFERENCES dim_stores(store_email),
-    product_id VARCHAR REFERENCES dim_products(product_id),
+    id INT PRIMARY KEY,
+    customer_id INT REFERENCES dim_customers(id),
+    seller_id INT REFERENCES dim_sellers(id),
+    product_id INT REFERENCES dim_products(id),
+    supplier_email VARCHAR REFERENCES dim_suppliers(email),
+    store_email VARCHAR REFERENCES dim_stores(email),
 
     sale_date DATE,
     sale_quantity INT,
